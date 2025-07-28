@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sandeep.idmate.dto.UserLoginDTO;
 import com.sandeep.idmate.entity.UserEntity;
 import com.sandeep.idmate.repository.UserRepository;
 import com.sandeep.idmate.service.UserService;
@@ -30,7 +31,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    UserLoginDTO userLoginDTO;
     @PostMapping("/register")
     public ResponseEntity<UserEntity> registerUser(@RequestBody UserEntity user) {
         try {
@@ -40,6 +42,15 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public String LoginUser(@RequestBody UserLoginDTO user) {
+    	Optional<UserEntity> user1 = userService.LoginUser(user);
+
+        if (user1.isPresent()) {
+            return "login successfulll"; // Return full user object
+        } else {
+            return "Invalid Cradentail";
+            		}}
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
         try {

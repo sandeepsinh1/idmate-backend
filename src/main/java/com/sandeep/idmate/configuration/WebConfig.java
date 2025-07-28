@@ -10,13 +10,13 @@ public class WebConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // allow all routes
-                        .allowedOrigins("http://localhost:3000") // allow React app
+                registry.addMapping("/**") // allow all endpoints
+                        .allowedOrigins("http://localhost:3000") // allow React
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }

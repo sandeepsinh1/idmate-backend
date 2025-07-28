@@ -2,10 +2,13 @@ package com.sandeep.idmate.service;
 
 import org.springframework.stereotype.Service;
 
+import com.sandeep.idmate.dto.UserLoginDTO;
 import com.sandeep.idmate.entity.UserEntity;
 import com.sandeep.idmate.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +24,6 @@ public class UserService {
         if (existing.isPresent()) {
             throw new RuntimeException("User with this email already exists.");
         }
-        user.setRole("USER");
         return userRepository.save(user);
     }
 
@@ -43,4 +45,9 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
+
+	public Optional<UserEntity> LoginUser(UserLoginDTO user) {
+		
+		return userRepository.checkCredential(user.getEmail(),user.getPassword());
+	}
 }
