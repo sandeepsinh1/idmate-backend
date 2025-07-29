@@ -44,7 +44,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String LoginUser(@RequestBody UserLoginDTO user) {
-    	Optional<UserEntity> user1 = userService.LoginUser(user);
+    	Optional<UserEntity> user1 = userService.LoginUser(user); 
 
         if (user1.isPresent()) {
             return "login successfulll"; // Return full user object

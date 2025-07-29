@@ -22,20 +22,78 @@ public class CardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
 
-    private String fullName;
-    private String designation;
-    private String company;
+    private String name;
+    private String title;
     private String phone;
     private String email;
-    private String website;
     private String address;
-    private String imageUrl;
-    private String theme;
-
+    private String website;
+    private String instagram;
+    private String facebook;
+    private String avatar;
+    private String whatsapp;
+    
+    private String about;
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @ManyToOne
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getWhatsapp() {
+		return whatsapp;
+	}
+
+	public void setWhatsapp(String whatsapp) {
+		this.whatsapp = whatsapp;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	@ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
@@ -52,31 +110,7 @@ public class CardEntity {
 	public void setCardId(Long cardId) {
 		this.cardId = cardId;
 	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -107,22 +141,6 @@ public class CardEntity {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getTheme() {
-		return theme;
-	}
-
-	public void setTheme(String theme) {
-		this.theme = theme;
 	}
 
 	public Timestamp getCreatedAt() {

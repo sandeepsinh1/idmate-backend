@@ -18,7 +18,8 @@ public class CardService {
 
     @Autowired
     private UserRepository userRepository;
-
+    
+    
     public CardEntity createCard(CardEntity card, Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow();
         card.setUser(user);
@@ -36,4 +37,9 @@ public class CardService {
     public void deleteCard(Long cardId) {
         cardRepository.deleteById(cardId);
     }
+
+	public CardEntity insertDetail(CardEntity card) {
+		return cardRepository.save(card);
+		
+	}
 }
