@@ -22,6 +22,13 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
+    
+    @PostMapping("/insertDetail")
+    CardEntity createCard1(@RequestBody CardEntity card)
+    {
+    	return cardService.insertDetail(card);
+    }
+    
     @PostMapping("/create/{userId}")
     public ResponseEntity<CardEntity> createCard(@RequestBody CardEntity card, @PathVariable Long userId) {
         return ResponseEntity.ok(cardService.createCard(card, userId));
