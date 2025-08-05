@@ -46,7 +46,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-	public Optional<UserEntity> LoginUser(UserLoginDTO user) {
+	public UserEntity LoginUser(UserLoginDTO user) {
 		
 		return userRepository.checkCredential(user.getEmail(),user.getPassword());
 	}

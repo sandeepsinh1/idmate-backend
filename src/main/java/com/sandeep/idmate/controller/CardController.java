@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sandeep.idmate.entity.CardEntity;
@@ -24,9 +25,13 @@ public class CardController {
 
     
     @PostMapping("/insertDetail")
-    CardEntity createCard1(@RequestBody CardEntity card)
-    {
-    	return cardService.insertDetail(card);
+	/*
+	 * CardEntity createCard1(@RequestBody CardEntity card) { return
+	 * cardService.insertDetail(card); }
+	 */
+    public ResponseEntity<CardEntity> createCard1(@RequestBody CardEntity card, @RequestParam Long userId) {
+        CardEntity savedCard = cardService.insertDetail(card, userId);
+        return ResponseEntity.ok(savedCard);
     }
     
     @PostMapping("/create/{userId}")
@@ -34,6 +39,9 @@ public class CardController {
         return ResponseEntity.ok(cardService.createCard(card, userId));
     }
 
+    
+    
+    
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<CardEntity>> getCardsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(cardService.getCardsByUserId(userId));

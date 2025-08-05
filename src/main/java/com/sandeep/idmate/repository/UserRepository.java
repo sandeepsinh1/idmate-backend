@@ -14,5 +14,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByEmail(String email);
 
     @Query(value = "SELECT * FROM users WHERE email = :email AND password = :password", nativeQuery = true)
-    Optional<UserEntity> checkCredential(@Param("email") String email, @Param("password") String password);
+    UserEntity checkCredential(@Param("email") String email, @Param("password") String password);
 }

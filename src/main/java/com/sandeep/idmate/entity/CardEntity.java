@@ -97,11 +97,6 @@ public class CardEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
-    private List<SocialLinkEntity> socialLinks;
-
-    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
-    private List<VisitAnalyticsEntity> analytics;
 
 	public Long getCardId() {
 		return cardId;
@@ -159,21 +154,6 @@ public class CardEntity {
 		this.user = user;
 	}
 
-	public List<SocialLinkEntity> getSocialLinks() {
-		return socialLinks;
-	}
-
-	public void setSocialLinks(List<SocialLinkEntity> socialLinks) {
-		this.socialLinks = socialLinks;
-	}
-
-	public List<VisitAnalyticsEntity> getAnalytics() {
-		return analytics;
-	}
-
-	public void setAnalytics(List<VisitAnalyticsEntity> analytics) {
-		this.analytics = analytics;
-	}
-    
+	    
     
 }

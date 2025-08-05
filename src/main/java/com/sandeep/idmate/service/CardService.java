@@ -20,8 +20,15 @@ public class CardService {
     private UserRepository userRepository;
     
     
-    public CardEntity createCard(CardEntity card, Long userId) {
-        UserEntity user = userRepository.findById(userId).orElseThrow();
+	
+	  public CardEntity createCard(CardEntity card, Long userId) { UserEntity user
+	  = userRepository.findById(userId).orElseThrow(); card.setUser(user); return
+	  cardRepository.save(card); }
+	 
+    public CardEntity insertDetail(CardEntity card, Long userId) {
+        UserEntity user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+        
         card.setUser(user);
         return cardRepository.save(card);
     }
@@ -41,5 +48,10 @@ public class CardService {
 	public CardEntity insertDetail(CardEntity card) {
 		return cardRepository.save(card);
 		
+	}
+
+	public String generateHtmlForUser(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
