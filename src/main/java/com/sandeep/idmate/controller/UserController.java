@@ -1,5 +1,5 @@
 package com.sandeep.idmate.controller;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sandeep.idmate.dto.UserLoginDTO;
 import com.sandeep.idmate.entity.UserEntity;
 import com.sandeep.idmate.repository.UserRepository;
+import com.sandeep.idmate.security.JwtUtil;
 import com.sandeep.idmate.service.UserService;
 @RestController
 //@RestController is a specialized version of the @Controller annotation in Spring, used to build RESTful web services. It combines two annotations:@RestController = @Controller + @ResponseBody 
@@ -33,6 +34,9 @@ public class UserController {
     private UserService userService;
     @Autowired
     UserLoginDTO userLoginDTO;
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @PostMapping("/register")
     public ResponseEntity<UserEntity> registerUser(@RequestBody UserEntity user) {
         try {
@@ -43,14 +47,18 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String LoginUser(@RequestBody UserLoginDTO user) {
-    	Optional<UserEntity> user1 = userService.LoginUser(user); 
+    public ResponseEntity<?> LoginUser(@RequestBody UserLoginDTO user) {
+    	UserEntity user1 = userService.LoginUser(user); 
+        System.out.println(user1.getUserId());
+        if (user != null && user1.getPassword().equals(user.getPassword())) {
+            String token = jwtUtil.generateToken(user1.getUserId());
+            return ResponseEntity.ok(Collections.singletonMap("token", token));
+        }
 
-        if (user1.isPresent()) {
-            return "login successfulll"; // Return full user object
-        } else {
-            return "Invalid Cradentail";
-            		}}
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
+        
+        }
+    
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
         try {
