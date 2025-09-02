@@ -47,14 +47,19 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardsByUserId(userId));
     }
 
-    @GetMapping("/{cardId}")
-    public ResponseEntity<CardEntity> getCardById(@PathVariable Long cardId) {
-        return ResponseEntity.ok(cardService.getCardById(cardId));
-    }
+	    @GetMapping("/{cardId}")
+	    public ResponseEntity<CardEntity> getCardById2(@PathVariable Long cardId) {
+	        return ResponseEntity.ok(cardService.getCardById(cardId));
+	    }
 
     @DeleteMapping("/{cardId}")
     public ResponseEntity<String> deleteCard(@PathVariable Long cardId) {
         cardService.deleteCard(cardId);
         return ResponseEntity.ok("Card deleted successfully");
     }
+    @GetMapping("getcard/{cardId}")
+    public ResponseEntity<CardEntity> getCardById(@PathVariable Long cardId) {
+        return ResponseEntity.ok(cardService.getCardById(cardId));
+    }
+
 }

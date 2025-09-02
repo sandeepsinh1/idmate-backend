@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Visiting Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            display: flex;
+            width: 500px;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background: #fff;
+        }
+
+        .left {
+            background-color: #f7931e;
+            color: white;
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .left img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .left .name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .left .title {
+            font-size: 14px;
+        }
+
+        .right {
+            background-color: #4b2e2e;
+            color: white;
+            width: 55%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .info a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .info a:hover {
+            color: #fbb03b;
+        }
+
+        .info i {
+            margin-right: 10px;
+            color: #fbb03b;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: #fbb03b;
+            margin-right: 15px;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <!-- Left Side -->
+    <div class="left">
+        <img th:src="@{${card.avatar}}" th:if="${card.avatar != null}" alt="Avatar" />
+        <div th:if="${card.name != null}" class="name" th:text="${card.name}">Your Name</div>
+        <div th:if="${card.title != null}" class="title" th:text="${card.title}">Designation</div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="right">
+        <div class="info" th:if="${card.address != null}">
+            <a th:href="'https://www.google.com/maps/search/' + ${card.address}" target="_blank">
+                <i class="fas fa-map-marker-alt"></i>
+                <span th:text="${card.address}">123 Example St, City</span>
+            </a>
+        </div>
+
+        <div class="info" th:if="${card.phone != null}">
+            <a th:href="'tel:' + ${card.phone}">
+                <i class="fas fa-phone"></i>
+                <span th:text="${card.phone}">(123) 456-7890</span>
+            </a>
+        </div>
+
+        <div class="info" th:if="${card.email != null}">
+            <a th:href="'mailto:' + ${card.email}">
+                <i class="fas fa-envelope"></i>
+                <span th:text="${card.email}">email@example.com</span>
+            </a>
+        </div>
+
+		<div class="info" th:if="${card.website != null}">
+		    <a th:href="${card.website}" target="_blank" title="Website">
+		        <i class="fas fa-globe"></i>
+		    </a>
+		</div>
+
+
+        <div class="social-icons">
+            <a th:if="${card.instagram != null}" th:href="${card.instagram}" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a th:if="${card.facebook != null}" th:href="${card.facebook}" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a th:if="${card.whatsapp != null}" th:href="'https://wa.me/' + ${card.whatsapp}" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
