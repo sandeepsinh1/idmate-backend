@@ -154,6 +154,11 @@ public class CardEntity {
 		this.user = user;
 	}
 
+	public CardEntity orElseThrow() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	    
     
 }

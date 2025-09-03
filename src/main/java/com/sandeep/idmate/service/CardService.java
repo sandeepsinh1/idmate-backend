@@ -54,4 +54,9 @@ public class CardService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public CardEntity getCardDetails(String id) {
+		return cardRepository.getCardDetails(id);
+		
+	}
 }
