@@ -1,5 +1,8 @@
 package com.sandeep.idmate.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,16 +46,25 @@ public class CardPageController {
     @PostMapping("/insertDetail")
     public String createCard1(@RequestBody CardEntity card, @RequestParam Long userId) {
         // 1. Save card
+    	System.out.println("1");
         cardService.insertDetail(card, userId);
-
+    	System.out.println("2");
         // 2. Redirect to a unique URL (example: /card/{userId})
         return "redirect:/car/card/" + userId;
     }
 
     @GetMapping("/card/{userId}")
     public String getCardPage1(@PathVariable Long userId, Model model) {
-        CardEntity card = cardRepository.findById(userId).orElseThrow();
-        model.addAttribute("card", card);
+    	System.out.println("3");
+    	List<CardEntity> card = cardRepository.findByUser_UserId(userId);
+    	 if (card.isEmpty()) {
+    	        throw new RuntimeException("No card found for user " + userId);
+    	    }
+ 	System.out.println("4"+card);
+ 	  CardEntity card1 = card.get(0); // first card
+ 	  
+    	model.addAttribute("card", card1);
+    	System.out.println("5");
         return "card-page"; // Thymeleaf template card-page.html
     }
      
