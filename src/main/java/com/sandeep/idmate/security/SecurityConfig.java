@@ -30,7 +30,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
       //  config.setAllowedOrigins(List.of("http://localhost:3000")); // React origin
-        config.setAllowedOrigins(List.of("https://idmate-backend.onrender.com")); // React origin
+        config.setAllowedOrigins(List.of("https://tiny-sorbet-ee7b66.netlify.app")); // React origin
         
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
