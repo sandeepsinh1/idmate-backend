@@ -10,8 +10,61 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+
 @Configuration
 @EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()  // Disable CSRF for REST APIs
+            .cors()            // Enable CORS
+            .and()
+            .authorizeHttpRequests()
+                .anyRequest().permitAll(); // Allow all for now
+
+        return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        
+        // Use allowedOriginPatterns instead of allowedOrigins
+        config.setAllowedOriginPatterns(List.of("https://tiny-sorbet-ee7b66.netlify.app", "http://localhost:3000"));
+        
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+
+        return source;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 public class SecurityConfig {
 
     @Bean
@@ -43,3 +96,4 @@ public class SecurityConfig {
  
     }
 }
+*/
