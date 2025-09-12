@@ -1,5 +1,6 @@
 package com.sandeep.idmate.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +60,6 @@ public class CardService {
 		return cardRepository.getCardDetails(id);
 		
 	}
+
+
 }

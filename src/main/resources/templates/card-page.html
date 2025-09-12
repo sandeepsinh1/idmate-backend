@@ -8,8 +8,8 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      background: #d8c3a5; /* beige background like 2nd design */
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d8c3a5, #eae7dc);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,68 +17,89 @@
     }
 
     .card {
-      display: flex;
-      width: 500px;
-      height: 250px;
-      border-radius: 20px;
+      max-width: 350px;
+      background: linear-gradient(to bottom right, #1e293b, #0f172a);
+      color: #f8fafc;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      padding: 2rem;
+      text-align: center;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      background: #f9e7c8; /* warm card color */
+      position: relative;
     }
 
-    .left {
-      background-color: #f7931e; /* orange accent */
-      color: white;
-      width: 45%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    /* Decorative glow */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 180deg, #ff8a00, #e52e71, #00c6ff, #ff8a00);
+      animation: rotate 6s linear infinite;
+      z-index: 0;
     }
 
-    .left img {
-      width: 80px;
-      height: 80px;
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      background: linear-gradient(to bottom right, #1e293b, #0f172a);
+      border-radius: 20px;
+      z-index: 1;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
+      border: 3px solid #f8fafc;
       margin-bottom: 15px;
-      border: 3px solid #fff;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
 
-    .left .name {
-      font-size: 18px;
-      font-weight: bold;
+    .name {
+      font-size: 1.4rem;
+      font-weight: 700;
       margin-bottom: 5px;
+      color: #ffffff;
     }
 
-    .left .title {
-      font-size: 14px;
-    }
-
-    .right {
-      background-color: #fff3e3; /* soft cream tone */
-      color: #333;
-      width: 55%;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .title {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
     }
 
     .info {
-      margin: 5px 0;
-      font-size: 14px;
+      margin: 6px 0;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
+      justify-content: center;
+      color: #cbd5e1;
     }
 
     .info a {
-      color: #333;
+      color: #f1f5f9;
       text-decoration: none;
     }
 
     .info a:hover {
-      color: #f7931e;
+      color: #ffb74d;
     }
 
     .info i {
@@ -87,35 +108,52 @@
     }
 
     .social-icons {
-      margin-top: 15px;
+      margin: 15px 0;
       display: flex;
-      align-items: center;
+      justify-content: center;
+      gap: 15px;
     }
 
     .social-icons img {
-      width: 28px;
-      margin-right: 12px;
+      width: 35px;
+      height: 35px;
       cursor: pointer;
-      transition: transform 0.2s;
+      border-radius: 50%;
+      padding: 6px;
+      background: rgba(255,255,255,0.1);
+      transition: transform 0.3s, background 0.3s;
     }
 
     .social-icons img:hover {
-      transform: scale(1.1);
+      transform: scale(1.15);
+      background: rgba(255,255,255,0.25);
+    }
+
+    .qr {
+      margin-top: 1.5rem;
+    }
+
+    .qr img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .qr p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
 
 <div class="card">
-  <!-- Left Side -->
-  <div class="left">
-    <img th:src="${card.avatar}" th:if="${card.avatar != null}" alt="Avatar" />
-    <div th:if="${card.name != null}" class="name" th:text="${card.name}">Your Name</div>
-    <div th:if="${card.title != null}" class="title" th:text="${card.title}">Designation</div>
-  </div>
+  <div class="card-content">
+      <!-- Name & Title -->
+    <div th:if="${card.name != null}" class="name" th:text="${card.name}">John Doe</div>
+    <div th:if="${card.title != null}" class="title" th:text="${card.title}">Software Engineer</div>
 
-  <!-- Right Side -->
-  <div class="right">
+    <!-- Address -->
     <div class="info" th:if="${card.address != null}">
       <i class="fas fa-map-marker-alt"></i>
       <a th:href="'https://www.google.com/maps/search/' + ${card.address}" target="_blank" th:text="${card.address}">
@@ -123,18 +161,19 @@
       </a>
     </div>
 
+    <!-- Phone -->
     <div class="info" th:if="${card.phone != null}">
       <i class="fas fa-phone"></i>
       <a th:href="'tel:' + ${card.phone}" th:text="${card.phone}">(123) 456-7890</a>
     </div>
 
-  
-
+    <!-- Website -->
     <div class="info" th:if="${card.website != null}">
       <i class="fas fa-globe"></i>
       <a th:href="${card.website}" target="_blank">Website</a>
     </div>
 
+    <!-- Social Icons -->
     <div class="social-icons">
       <a th:if="${card.instagram != null}" th:href="${card.instagram}" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
@@ -146,7 +185,18 @@
         <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
       </a>
     </div>
-  </div>
+	<div>
+		<div class="qr">
+			<img th:src="'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=http://localhost:8080/car/card/' + ${card.user.userId}" 
+			     alt="QR Code" 
+			     style="width:120px; height:120px;"/>
+
+		  
+		  <p>Scan to view my card</p>
+		</div>
+
+</div>
+     </div>
 </div>
 
 </body>

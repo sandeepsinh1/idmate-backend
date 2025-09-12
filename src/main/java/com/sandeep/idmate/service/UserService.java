@@ -2,6 +2,7 @@ package com.sandeep.idmate.service;
 
 import org.springframework.stereotype.Service;
 
+import com.sandeep.idmate.dto.UserDTO;
 import com.sandeep.idmate.dto.UserLoginDTO;
 import com.sandeep.idmate.entity.UserEntity;
 import com.sandeep.idmate.repository.UserRepository;
@@ -9,6 +10,7 @@ import com.sandeep.idmate.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

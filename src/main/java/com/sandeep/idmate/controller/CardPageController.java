@@ -55,18 +55,21 @@ public class CardPageController {
 
     @GetMapping("/card/{userId}")
     public String getCardPage1(@PathVariable Long userId, Model model) {
-    	System.out.println("3");
-    	List<CardEntity> card = cardRepository.findByUser_UserId(userId);
-    	 if (card.isEmpty()) {
-    	        throw new RuntimeException("No card found for user " + userId);
-    	    }
- 	System.out.println("4"+card);
- 	  CardEntity card1 = card.get(0); // first card
- 	  
-    	model.addAttribute("card", card1);
-    	System.out.println("5");
+        System.out.println("3");
+        
+        List<CardEntity> card = cardRepository.findByUser_UserId(userId);
+        
+        if (card.isEmpty()) {
+            throw new RuntimeException("No card found for user " + userId);
+        }
+        
+        System.out.println("4" + card);
+        CardEntity card1 = card.get(0); // first card
+        
+        model.addAttribute("card", card1);
+        System.out.println("5");
+        
         return "card-page"; // Thymeleaf template card-page.html
     }
-     
 
 }

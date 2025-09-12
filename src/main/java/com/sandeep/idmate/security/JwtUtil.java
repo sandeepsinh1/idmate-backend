@@ -17,6 +17,8 @@ public class JwtUtil {
 
     private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
+    // Generate JWT
+
     public String generateToken(Long userId) {
     	
         return Jwts.builder()
@@ -26,7 +28,8 @@ public class JwtUtil {
             .signWith(key, SignatureAlgorithm.HS256)
             .compact();
     }
-
+   
+    // Extract userId (stored as subject)
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
             .setSigningKey(key)
@@ -35,7 +38,8 @@ public class JwtUtil {
             .getBody()
             .getSubject();
     }
-
+   
+    // Validate token (signature + expiry)
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
